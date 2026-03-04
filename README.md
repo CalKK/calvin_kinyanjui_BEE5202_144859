@@ -34,13 +34,13 @@
 
 ## Project Objectives
 
-1. **Develop a Digital Twin for E-Bike Fleet Operations** — Build a Monte Carlo simulation engine that models 100 electric motorcycles operating on a real Nairobi route, incorporating physics-based energy consumption and electrochemical battery degradation.
+1. **To develop a physics-based Digital Twin** for simulating 100 electric motorcycle fleet operations on a real Nairobi route, incorporating GPX topography, electrochemical battery degradation, and Monte Carlo stochastic trip generation.
 
-2. **Compare SIB vs LFP Battery Chemistry Techno-Economics** — Evaluate Sodium-Ion (SIB) and Lithium Iron Phosphate (LFP) batteries across cost, degradation, energy efficiency, and capacity fade to determine which chemistry is more viable for commercial e-bike fleets.
+2. **To compare the techno-economic viability of Sodium-Ion (SIB) and Lithium Iron Phosphate (LFP) battery chemistries** across cost, SOH degradation, energy efficiency, and capacity fade under identical operating conditions.
 
-3. **Assess Owned (Depot) vs BaaS (Swapping) Business Models** — Quantify the Total Cost of Ownership per kilometre for battery ownership with KPLC grid charging versus Battery-as-a-Service with pay-per-swap, identifying crossover points.
+3. **To evaluate Owned (Depot Charging) versus Battery-as-a-Service (Swapping) business models** by quantifying Total Cost of Ownership per kilometre and identifying crossover points where one model becomes more cost-effective than the other.
 
-4. **Deliver an Interactive Decision-Support Tool** — Create a Streamlit application with separated ETL and simulation stages, configurable parameters, downloadable data, and an automated feasibility report with mathematical derivations.
+4. **To deliver an interactive, data-driven decision-support tool** built in Streamlit, featuring configurable parameters, downloadable ETL data, automated feasibility reporting, and transparent mathematical derivations from first principles.
 
 ---
 
