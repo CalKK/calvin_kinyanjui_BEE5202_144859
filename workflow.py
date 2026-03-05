@@ -19,7 +19,7 @@ import xml.etree.ElementTree as ET
 # FIXED PARAMETERS
 # ==========================================
 TARGET_CAP_KWH = 1.44  # Target: 48V 30Ah
-FLEET_SIZE = 100       # Fixed fleet size
+FLEET_SIZE = 25        # 25 bikes per model × 4 models = 100 total fleet
 
 # ==========================================
 # FILE I/O
@@ -39,7 +39,7 @@ def read_file(uploaded_file):
 def perform_etl_and_scaling(dc_data, bms_data):
     """
     Extract electrochemical parameters from driving cycle and BMS datasets.
-    Returns: (mean_km, std_km, k_degradation_base, r0_scaled)
+    Returns: (mean_km, std_km, k_degradation_base, r0_scaled, df_daily_clean, df_bms_clean)
     """
     # A. Usage Profile
     df_dc = read_file(dc_data)
@@ -65,7 +65,7 @@ def perform_etl_and_scaling(dc_data, bms_data):
     # C. Dimensional Scaling (72V 40Ah -> 48V 30Ah)
     r0_scaled = r0_source * ((48.0 / 72.0) / (30.0 / 40.0))
     
-    return mean_km, std_km, k_source, r0_scaled
+    return mean_km, std_km, k_source, r0_scaled, daily, df_clean
 
 def apply_arrhenius_thermal_stress(k_base, current_temp, baseline_temp=25.0):
     """
@@ -189,7 +189,7 @@ class FleetBike:
             loss_prev = self.k_coeff * (self.cum_efc ** self.p_factor)
             self.cum_efc += efc_this_trip
             self.soh -= (self.k_coeff * (self.cum_efc ** self.p_factor) - loss_prev)
-            self.capex_amortized = self.initial_capex * ((1.0 - self.soh) / 0.20)
+            self.capex_amortized = min(self.initial_capex, self.initial_capex * ((1.0 - self.soh) / 0.20))
         
         else: # BaaS Model
             # Predictive Swap & Range Anxiety Edge Case
